@@ -1,4 +1,6 @@
-# Cars Dealership
+# fullstack_developer_capstone
+
+Repository: `xrwvm-fullstack_developer_capstone`
 
 Cars Dealership is a full-stack directory of U.S. dealership branches. Visitors can browse dealers, filter by state and read reviews. Registered customers can submit reviews, and the Flask service analyzes review sentiment.
 
