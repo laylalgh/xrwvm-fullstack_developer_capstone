@@ -11,6 +11,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 COPY --from=frontend /app/build frontend/build
-RUN python manage.py collectstatic --noinput
+ENV PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1
 EXPOSE 8000
-CMD ["sh", "-c", "python manage.py migrate --noinput && python manage.py shell -c 'from djangoapp.populate import initiate; initiate()' && exec gunicorn djangoproj.wsgi --bind 0.0.0.0:8000"]
+ENTRYPOINT ["/bin/sh", "/app/entrypoint.sh"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "djangoproj.wsgi"]
