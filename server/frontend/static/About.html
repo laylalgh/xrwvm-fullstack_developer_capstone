@@ -1,68 +1,17 @@
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-  <!-- Link the style sheet here -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About Us | Cars Dealership</title>
+  <link rel="stylesheet" href="/static/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/style.css">
 </head>
-<div>
-  <nav class="navbar navbar-expand-lg navbar-light" style="background-color:darkturquoise; height: 1in;">
-    <div class="container-fluid">
-      <h2 style="padding-right: 5%;">Dealerships</h2>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarText">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link" style="font-size: larger;" aria-current="page" href="/">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" style="font-size: larger;" href="/about">About Us</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" style="font-size: larger;" href="/contact">Contact Us</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-  
-    <div class="card" style="width: 80%;margin: auto; margin-top:5%;">
-      <div class="banner" name="about-header">
-      <!-- Insert header information here -->
-      </div>
-      <div style="display: flex;flex-direction: row; margin:auto">
-      <div class="card" style="width: 30%;">
-        <img class="card-img-top" src="/static/person.png" alt="Card image">
-        <div class="card-body">
-          <p class="title">Person1</p>
-          <p>Person1 Title</p>
-          <p class="card-text">Some text that explains the person1 in about 2 short sentences</p>
-          <p>person1@example.com</p>
-        </div>
-      </div>
-
-      <div class="card" style="width: 30%;">
-        <img class="card-img-top" src="/static/person.png" alt="Card image">
-        <div class="card-body">
-          <p class="title">Person2</p>
-          <p>Person2 Title</p>
-          <p class="card-text">Some text that explains the person2 in about 2 short sentences</p>
-          <p>person2@example.com</p>
-        </div>
-      </div>
-
-      <div class="card" style="width: 30%;">
-        <img class="card-img-top" src="/static/person.png" alt="Card image">
-        <div class="card-body">
-          <p class="title">Person3</p>
-          <p>Person3 Title</p>
-          <p class="card-text">Some text that explains the person3 in about 2 short sentences</p>
-          <p>person3@example.com</p>
-        </div>
-      </div>
-    </div>
-    </div>
-    </div>
-    
-</div>
-
+<body>
+  <nav class="navbar navbar-expand bg-light border-bottom"><div class="container"><a href="/" class="navbar-brand">Cars Dealership</a><div class="navbar-nav"><a class="nav-link" href="/">Home</a><a class="nav-link" href="/dealers">Dealerships</a><a class="nav-link active" href="/about" aria-current="page">About Us</a><a class="nav-link" href="/contact">Contact Us</a></div></div></nav>
+  <main class="container py-5">
+    <h1>About Us</h1>
+    <p>Cars Dealership helps customers find local branches across the United States and read owner reviews before visiting.</p><img src="/static/car_dealership.jpg" class="img-fluid rounded mb-4" style="max-height:280px" alt="Cars at a dealership"><h2>Our team</h2><div class="row row-cols-1 row-cols-md-3 g-3"><div class="col"><article class="card h-100"><div class="card-body"><h2 class="h4">Maya Brooks</h2><p class="fw-bold">General Manager</p><p>Oversees dealership operations and customer experience.</p><a href="mailto:maya.brooks@carsdealership.example">maya.brooks@carsdealership.example</a></div></article></div><div class="col"><article class="card h-100"><div class="card-body"><h2 class="h4">Jordan Lee</h2><p class="fw-bold">Sales Director</p><p>Helps customers compare vehicles and find a good fit.</p><a href="mailto:jordan.lee@carsdealership.example">jordan.lee@carsdealership.example</a></div></article></div><div class="col"><article class="card h-100"><div class="card-body"><h2 class="h4">Taylor Morgan</h2><p class="fw-bold">Service Manager</p><p>Coordinates maintenance and after-sales support.</p><a href="mailto:taylor.morgan@carsdealership.example">taylor.morgan@carsdealership.example</a></div></article></div></div>
+  </main>
+</body>
 </html>
