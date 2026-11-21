@@ -1,0 +1,32 @@
+name: Cars Dealership CI
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Django dependencies
+        run: pip install -r server/requirements.txt
+      - name: Check Django and apply migrations
+        working-directory: server
+        run: |
+          python manage.py check
+          python manage.py migrate --noinput
+      - name: Install Express dependencies
+        run: npm ci --prefix server/database
+      - name: Check Express syntax
+        run: node --check server/database/app.js
+      - name: Build React frontend
+        env:
+          CI: "false"
+        run: |
+          npm ci --prefix server/frontend
+          npm run build --prefix server/frontend
