@@ -1,3 +1,4 @@
+import { useParams, useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 import "./Dealers.css";
 import "../assets/style.css";
@@ -6,7 +7,8 @@ import review_icon from "../assets/reviewicon.png"
 
 const Dealers = () => {
   const [dealersList, setDealersList] = useState([]);
-  // let [state, setState] = useState("")
+  const { state } = useParams();
+  const navigate = useNavigate();
   let [states, setStates] = useState([])
 
   // let root_url = window.location.origin
@@ -15,7 +17,7 @@ const Dealers = () => {
   let dealer_url_by_state = "/djangoapp/get_dealers/";
  
   const filterDealers = async (state) => {
-    dealer_url_by_state = dealer_url_by_state+state;
+    dealer_url_by_state = dealer_url_by_state+encodeURIComponent(state);
     const res = await fetch(dealer_url_by_state, {
       method: "GET"
     });
@@ -43,8 +45,15 @@ const Dealers = () => {
     }
   }
   useEffect(() => {
-    get_dealers();
-  },[]);  
+    if (!state) return;
+    fetch(dealer_url).then(response => response.json()).then(data => {
+      if (data.status === 200) setStates([...new Set(data.dealers.map(dealer => dealer.state))]);
+    });
+  }, [dealer_url, state]);
+  useEffect(() => {
+    if (state) filterDealers(state);
+    else get_dealers();
+  }, [state]);
 
 
 let isLoggedIn = sessionStorage.getItem("username") != null ? true : false;
@@ -60,7 +69,7 @@ return(
       <th>Address</th>
       <th>Zip</th>
       <th>
-      <select name="state" id="state" onChange={(e) => filterDealers(e.target.value)}>
+      <select name="state" id="state" onChange={(e) => navigate(e.target.value ? "/dealers/" + encodeURIComponent(e.target.value) : "/dealers")}>
       <option value="" selected disabled hidden>State</option>
       <option value="All">All States</option>
       {states.map(state => (

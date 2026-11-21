@@ -1,3 +1,4 @@
+import csrfToken from "../csrf";
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import "./Dealers.css";
@@ -32,7 +33,7 @@ const PostReview = () => {
       return;
     }
 
-    let model_split = model.split(" ");
+    let model_split = model.split("|");
     let make_chosen = model_split[0];
     let model_chosen = model_split[1];
 
@@ -47,11 +48,12 @@ const PostReview = () => {
       "car_year": year,
     });
 
-    console.log(jsoninput);
+
     const res = await fetch(review_url, {
       method: "POST",
       headers: {
           "Content-Type": "application/json",
+          "X-CSRFToken": csrfToken(),
       },
       body: jsoninput,
   });
@@ -59,6 +61,8 @@ const PostReview = () => {
   const json = await res.json();
   if (json.status === 200) {
       window.location.href = window.location.origin+"/dealer/"+id;
+  } else {
+      alert(json.message || "Review could not be posted.");
   }
 
   }
@@ -104,13 +108,13 @@ const PostReview = () => {
       <select name="cars" id="cars" onChange={(e) => setModel(e.target.value)}>
       <option value="" selected disabled hidden>Choose Car Make and Model</option>
       {carmodels.map(carmodel => (
-          <option value={carmodel.CarMake+" "+carmodel.CarModel}>{carmodel.CarMake} {carmodel.CarModel}</option>
+          <option value={carmodel.CarMake+"|"+carmodel.CarModel}>{carmodel.CarMake} {carmodel.CarModel}</option>
       ))}
       </select>        
       </div >
 
       <div className='input_field'>
-      Car Year <input type="int" onChange={(e) => setYear(e.target.value)} max={2023} min={2015}/>
+      Car Year <input type="number" onChange={(e) => setYear(e.target.value)} max={2023} min={2015}/>
       </div>
 
       <div>
