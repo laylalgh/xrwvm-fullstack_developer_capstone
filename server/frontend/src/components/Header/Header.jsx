@@ -1,3 +1,4 @@
+import csrfToken from "../csrf";
 import React from 'react';
 import "../assets/style.css";
 import "../assets/bootstrap.min.css";
@@ -7,16 +8,15 @@ const Header = () => {
     e.preventDefault();
     let logout_url = window.location.origin+"/djangoapp/logout";
     const res = await fetch(logout_url, {
-      method: "GET",
+      method: "POST",
+      headers: { "X-CSRFToken": csrfToken() },
     });
   
     const json = await res.json();
-    if (json) {
-      let username = sessionStorage.getItem('username');
+    if (res.ok && json) {
       sessionStorage.removeItem('username');
       window.location.href = window.location.origin;
-      window.location.reload();
-      alert("Logging out "+username+"...")
+
     }
     else {
       alert("The user could not be logged out.")
