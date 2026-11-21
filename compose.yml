@@ -1,0 +1,31 @@
+services:
+  mongo:
+    image: mongo:7
+    volumes:
+      - mongo_data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+  dealers:
+    build: ./server/database
+    environment:
+      MONGODB_URI: mongodb://mongo:27017/dealershipsDB
+    depends_on:
+      mongo:
+        condition: service_healthy
+  sentiment:
+    build: ./server/djangoapp/microservices
+  web:
+    build: ./server
+    environment:
+      backend_url: http://dealers:3030
+      sentiment_analyzer_url: http://sentiment:5050
+    ports:
+      - "127.0.0.1:8000:8000"
+    depends_on:
+      - dealers
+      - sentiment
+volumes:
+  mongo_data:
